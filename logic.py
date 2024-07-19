@@ -1,67 +1,65 @@
-import sqlite3
-
+import db
+import re
 from model import Note
 
 
+class Events:
+    def __init__(self, *a):
+        pass
 
+    def create(self, data: str):
+        self.data = data
+        ext_mess_ttl = ''
+        ext_mess_txt = ''
+        inp_str = data.split("|")
+        data = inp_str[0]
+        data_m = re.match(r'^[0-9]{4}-{1}[0-9]{2}-{1}[0-9]{2}$', inp_str[0])
+        if data_m:
+            title = inp_str[1]
+            text = inp_str[2]
 
+            if len(title) > Note.title_len:
+                title = title[0:Note.title_len]
 
+            if len(text) > Note.text_len:
+                text = text[0:Note.text_len]
 
+            db_string = f"INSERT INTO events (data, title, text) VALUES ('{data}','{title}','{text}')"
+            answer = db.db_work(db_str=db_string)
+            return("Success. ")
+        else:
+            return("Дата не соответствует формату. ")
 
+    def read(self, n_id: int):
+        self.n_id = n_id
+        if n_id==0:
+            db_string = f"SELECT * FROM events"
+        else:
+            db_string = f"SELECT * FROM events WHERE id = '{n_id}'"
+        answer = db.db_work(db_str=db_string)
+        return (answer)
 
-def create(self, body: str, user: str):  # Создание новой записи. В качестве аргументов у нас пост и имя юзера
-    self.user = user
-    self.body = body
-    user_id = User().work(user=user)  # Вытягиваем ИД при помощи модуля Юзеров
-    conn = sqlite3.connect('posts.db')
-    cursor = conn.cursor()
-    cursor.execute("INSERT INTO posts (user_id, body) VALUES (?, ?)", (user_id, body))  # Скармливаем в БД
-    conn.commit()
-    conn.close()
-    return ("Success")  # Отдаем результат для передачи в JSON
+    def update(self,n_id: int, data: str):
+        self.data = data
+        self.n_id = n_id
+        ext_mess_ttl = ''
+        ext_mess_txt = ''
+        inp_str = data.split("|")
+        data = inp_str[0]
+        title = inp_str[1]
+        text = inp_str[2]
 
-def read(self, post_id=0):  # Чтение записи. В качестве аргументов у нас ИД поста
-    self.post_id = int(post_id)
-    post = []
-    if post_id == 0:  # Если ИД не передавалось...
-        conn = sqlite3.connect('posts.db')
-        cursor = conn.cursor()
-        all = cursor.execute(f"SELECT * FROM posts")  # ... читаем все посты...
-        for line in all:
-            user_id = line[1]  # ... получаем ИД юзера...
-            user = User().get_user(user_id=user_id)  # ... из него - Имя юзера...
-            dict = {'body': line[2], 'user': user}  # ... их пишем в словарь...
-            post.append(dict)  # ... собираем словарь в список.
-    else:
-        conn = sqlite3.connect('posts.db')
-        cursor = conn.cursor()
-        cursor.execute(f"SELECT * FROM posts WHERE post_id = '{post_id}'")  # Если был номер поста...
-        line = cursor.fetchone()
-        user_id = line[1]
-        user = User().get_user(user_id=user_id)  # ... делаем все то же, но для одной строки.
-        dict = {'body': line[2], 'user': user}
-        post.append(dict)
-    conn.commit()
-    conn.close()
-    return (post)  # Отдаем результат в виде словаря для передачи в JSON
+        if len(title) > Note.title_len:
+            title = title[0:Note.title_len]
 
-def delete(self, post_id):  # Удаление поста. Аргумент - номер поста
-    self.post_id = int(post_id)
-    conn = sqlite3.connect('posts.db')
-    cursor = conn.cursor()
-    cursor.execute(f"DELETE FROM posts WHERE post_id='{post_id}'")  # Просто удаляем строку.
-    conn.commit()
-    conn.close()
-    return ("Success delete")  # Отдаем результат для передачи в JSON
+        if len(text) > Note.text_len:
+            text = text[0:Note.text_len]
+        db_string = f"UPDATE events SET data = '{data}', title = '{title}', text = '{text}' WHERE id = '{n_id}'"
+        answer = db.db_work(db_str=db_string)
+        return ("Success. ")
 
-def change(self, post_id: int, body: str, user: str):
-    self.post_id = post_id
-    self.user = user
-    self.body = body
-    user_id = User().work(user=user)  # Вытягиваем ИД при помощи модуля Юзеров
-    conn = sqlite3.connect('posts.db')
-    cursor = conn.cursor()
-    cursor.execute(f"UPDATE posts SET body = '{body}', user_id = '{user_id}' WHERE post_id = '{post_id}'")
-    conn.commit()
-    conn.close()
-    return ("Success")  # Отдаем результат для передачи в JSON
+    def delete(self, n_id: int):
+        self.n_id = n_id
+        db_string = f"DELETE FROM events WHERE id='{n_id}'"
+        answer = db.db_work(db_str=db_string)
+        return ("Success. ")
