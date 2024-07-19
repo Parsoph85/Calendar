@@ -63,3 +63,7 @@ class Events:
         db_string = f"DELETE FROM events WHERE id='{n_id}'"
         answer = db.db_work(db_str=db_string)
         return ("Success. ")
+
+"""
+Нужна проверка на добавление в одну дату
+"""
