@@ -24,22 +24,34 @@ class Events:
             if len(text) > Note.text_len:
                 text = text[0:Note.text_len]
 
-            db_string = f"INSERT INTO events (data, title, text) VALUES ('{data}','{title}','{text}')"
+            db_string = f"SELECT data FROM events WHERE data = '{data}'"
             answer = db.db_work(db_str=db_string)
-            return("Success. ")
+            print("answer", answer)
+            if answer == []:
+                db_string = f"INSERT INTO events (data, title, text) VALUES ('{data}','{title}','{text}')"
+                answer = db.db_work(db_str=db_string)
+                return ("Success. ")
+            else:
+                return ("Дата уже есть. ")
         else:
-            return("Дата не соответствует формату. ")
+            return ("Дата не соответствует формату. ")
 
     def read(self, n_id: int):
         self.n_id = n_id
-        if n_id==0:
+        answer = []
+        if n_id == 0:
             db_string = f"SELECT * FROM events"
+            answer_d = db.db_work(db_str=db_string)
+            for line in answer_d:
+                a_line = line[1] + "|" + line[2] + "|" + line[3]
+                answer.append(a_line)
         else:
             db_string = f"SELECT * FROM events WHERE id = '{n_id}'"
-        answer = db.db_work(db_str=db_string)
+            answer = db.db_work(db_str=db_string)[0]
+            answer = answer[1] + "|" + answer[2] + "|" + answer[3]
         return (answer)
 
-    def update(self,n_id: int, data: str):
+    def update(self, n_id: int, data: str):
         self.data = data
         self.n_id = n_id
         ext_mess_ttl = ''
@@ -63,7 +75,3 @@ class Events:
         db_string = f"DELETE FROM events WHERE id='{n_id}'"
         answer = db.db_work(db_str=db_string)
         return ("Success. ")
-
-"""
-Нужна проверка на добавление в одну дату
-"""
