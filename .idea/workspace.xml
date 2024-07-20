@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4292663e-f6d9-4770-b4c9-7412659b815c" name="Changes" comment="Мелкие корректировки">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/logic.py" beforeDir="false" afterPath="$PROJECT_DIR$/logic.py" afterDir="false" />
-    </list>
+    <list default="true" id="4292663e-f6d9-4770-b4c9-7412659b815c" name="Changes" comment="Добавлены разделители в вывод. Добавлена логика на один пост в день" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -95,7 +92,7 @@
       <workItem from="1721386848078" duration="403000" />
       <workItem from="1721389840936" duration="3004000" />
       <workItem from="1721392928869" duration="17623000" />
-      <workItem from="1721452799384" duration="3686000" />
+      <workItem from="1721452799384" duration="4000000" />
     </task>
     <task id="LOCAL-00001" summary="Добавлены модули, начало написания кода в майне">
       <option name="closed" value="true" />
@@ -121,7 +118,15 @@
       <option name="project" value="LOCAL" />
       <updated>1721411150638</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Добавлены разделители в вывод. Добавлена логика на один пост в день">
+      <option name="closed" value="true" />
+      <created>1721456815588</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1721456815588</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -132,7 +137,8 @@
     <MESSAGE value="Добавлены модули, начало написания кода в майне" />
     <MESSAGE value="Написан почти весь код. Осталась проверка на добавление заметок в одну дату" />
     <MESSAGE value="Мелкие корректировки" />
-    <option name="LAST_COMMIT_MESSAGE" value="Мелкие корректировки" />
+    <MESSAGE value="Добавлены разделители в вывод. Добавлена логика на один пост в день" />
+    <option name="LAST_COMMIT_MESSAGE" value="Добавлены разделители в вывод. Добавлена логика на один пост в день" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Calendar$db.coverage" NAME="db Coverage Results" MODIFIED="1721398548022" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
